@@ -2,11 +2,13 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
     document.querySelectorAll(".drum")[i].addEventListener("click", function () {
         let buttonInnerHtml = this.innerHTML;
         makeSound(buttonInnerHtml);
+        buttonAnimation(buttonInnerHtml);
     });
 }
-document.addEventListener("keypress",function (event) {
+document.addEventListener("keypress", function (event) {
     var key = event.key;
-    makeSound(key);  
+    makeSound(key);
+    buttonAnimation(key);
 });
 
 function makeSound(key) {
@@ -36,7 +38,16 @@ function makeSound(key) {
 }
 
 function soundPlay(name) {
-    var audio = new Audio("./sounds/"+name+".mp3");
+    let audio = new Audio("./sounds/" + name + ".mp3");
     audio.play();
 }
-   
+
+function buttonAnimation(currentKey) {
+    let activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add("pressed");
+
+    setTimeout(function () {
+        activeButton.classList.remove("pressed");
+
+    }, 100)
+}
